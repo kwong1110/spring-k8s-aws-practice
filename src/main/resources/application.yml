@@ -1,0 +1,119 @@
+# ! local
+# spring:
+#   application:
+#     name: monolithic
+#   datasource:
+#     driver-class-name: org.mariadb.jdbc.Driver
+#     url: jdbc:mariadb://127.0.0.1:3306/inspire
+#     username: dev
+#     password: 1234
+
+#   jpa:
+#     hibernate:
+#       #   ddl-auto: validate
+#       ddl-auto: create
+#     # 콘솔출력
+#     show-sql: true
+#     properties:
+#       hibernate:
+#         # h2
+#         # dialect: org.hibernate.dialect.H2Dialect
+#         # mariadb
+#         dialect: org.hibernate.dialect.MariaDBDialect
+#         format_sql: true
+
+#   # redis
+#   # redis 실행
+#   # docker run -d --name redis-container -p 6379:6379 redis:7.2
+#   # redis 실행 확인
+#   # docker exec -it redis-container redis-cli
+#   # ping
+#   # 브라우저에서 redis 확인
+#   # docker run -d --name redis-insight -p 8001:5540 redis/redisinsight:latest
+#   # http://localhost:8001
+#   # Host: redis 또는 host.docker.internal , port: 6379
+
+#   data:
+#     redis:
+#       host: localhost
+#       port: 6379
+#       password:
+#       timeout: 6000ms
+
+# #   ai:
+# #     openai:
+# #       model: ${OPEN_AI_MODEL}
+# #       api:
+# #         key: ${OPEN_AI_KEY}
+# #         url: ${OPEN_AI_URL}
+
+# # mybatis settings
+# # mybatis:no
+
+# jwt:
+#   secret: ZmFrZS1kZXZlbG9wbWVudC1qd3Qtc2VjcmV0LWtleS1sb25nLWVub3VnaA==
+
+# # openApi:
+# #   serviceKey: ${SERVICE_KEY}
+# #   callBackUrl: ${CALLBACKURL}
+# #   dataType: ${TYPE}
+
+# ! cloud
+spring:
+  application:
+    name: monolithic
+  datasource:
+    driver-class-name: org.mariadb.jdbc.Driver
+    url: ${SPRING_DATASOURCE_URL:-jdbc:mariadb://127.0.0.1:3306/inspire}
+    username: ${SPRING_DATASOURCE_USERNAME:-root}
+    password: ${SPRING_DATASOURCE_PASSWORD:-12345678}
+
+  jpa:
+    hibernate:
+      # ddl-auto: validate
+      ddl-auto: ${SPRING_JPA_HIBERNATE_DDL_AUTO:-create}
+    # 콘솔출력
+    show-sql: ${SPRING_JPA_SHOW_SQL:-true}
+    properties:
+      hibernate:
+        # h2
+        # dialect: org.hibernate.dialect.H2Dialect
+        # mariadb
+        dialect: org.hibernate.dialect.MariaDBDialect
+        format_sql: true
+
+  # redis
+  # redis 실행
+  # docker run -d --name redis-container -p 6379:6379 redis:7.2
+  # redis 실행 확인
+  # docker exec -it redis-container redis-cli
+  # ping
+  # 브라우저에서 redis 확인
+  # docker run -d --name redis-insight -p 8001:5540 redis/redisinsight:latest
+  # http://localhost:8001
+  # Host: redis 또는 host.docker.internal , port: 6379
+
+  data:
+    redis:
+      host: ${SPRING_REDIS_HOST:-redis}
+      port: ${SPRING_REDIS_PORT:-6379}
+      password:
+      timeout: 6000ms
+
+#   ai:
+#     openai:
+#       model: ${OPEN_AI_MODEL}
+#       api:
+#         key: ${OPEN_AI_KEY}
+#         url: ${OPEN_AI_URL}
+
+# mybatis settings
+# mybatis:no
+
+jwt:
+  secret: ZmFrZS1kZXZlbG9wbWVudC1qd3Qtc2VjcmV0LWtleS1sb25nLWVub3VnaA==
+
+# openApi:
+#   serviceKey: ${SERVICE_KEY}
+#   callBackUrl: ${CALLBACKURL}
+#   dataType: ${TYPE}
