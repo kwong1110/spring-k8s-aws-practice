@@ -59,21 +59,27 @@
 # #   dataType: ${TYPE}
 
 # ! cloud
+# aws - ecr image
+server:
+  forward-headers-strategy: framework
+
 spring:
   application:
-    name: monolithic
+    name: monolithic-k8s-aws
   datasource:
+    # ${} 외부변수값은 k8s - secret 생성하여 pod 실행 시 주입 할 예정!
     driver-class-name: org.mariadb.jdbc.Driver
-    url: ${SPRING_DATASOURCE_URL:-jdbc:mariadb://127.0.0.1:3306/inspire}
-    username: ${SPRING_DATASOURCE_USERNAME:-root}
-    password: ${SPRING_DATASOURCE_PASSWORD:-12345678}
+    # ! url, username, password -> k8s secret에서 관리.
+    url: jdbc:mariadb://${DB_HOST}:3306/inspire?useSSL=true&requireSSL=true
+    username: ${DB_ADMIN}
+    password: ${DB_PASSWORD}
 
   jpa:
     hibernate:
       # ddl-auto: validate
-      ddl-auto: ${SPRING_JPA_HIBERNATE_DDL_AUTO:-create}
+      ddl-auto: create
     # 콘솔출력
-    show-sql: ${SPRING_JPA_SHOW_SQL:-true}
+    show-sql: true
     properties:
       hibernate:
         # h2
@@ -95,8 +101,9 @@ spring:
 
   data:
     redis:
-      host: ${SPRING_REDIS_HOST:-redis}
-      port: ${SPRING_REDIS_PORT:-6379}
+      # host 설정은 order_redis.yml 서비스 이름으로 변경
+      host: redis-service
+      port: 6379
       password:
       timeout: 6000ms
 
