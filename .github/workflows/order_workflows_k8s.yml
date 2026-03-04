@@ -4,3 +4,14 @@ on:
   push:
     branches:
       - main
+
+jobs:
+  # job의 이름 자유롭게 지정, 명세되어 있는게 아님
+  # job name
+  build-and-deploy:
+    # runner
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: checkout github
+        uses: actions/checkout@v2
