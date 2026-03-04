@@ -33,3 +33,13 @@ jobs:
 
       - name: aws ecr login
         uses: aws-actions/amazon-ecr-login@v1
+
+      - name: aws ecr - docker image build and push
+        env:
+          # 변수는 기존 명령어와 구분되게 대문자로 작성
+          REGISTRY: 512138915880.dkr.ecr.us-east-1.amazonaws.com
+          REPOSITORY: lgcns-kwang
+          IMAGE_TAG: latest
+        run: |
+          docker build -t $REGISTRY/$REPOSITORY:$IMAGE_TAG -f Dockerfile .
+          docker push $REGISTRY/$REPOSITORY:$IMAGE_TAG
