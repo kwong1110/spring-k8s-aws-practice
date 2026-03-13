@@ -27,6 +27,17 @@ spec:
           ports:
             - containerPort: 8080
 
+          # autoscaler(pod) 작업을 위해서 추가함
+          resources:
+            # 컨테이너가 사용할수 있는 리소스의 최대치
+            limits:
+              cpu: "1"
+              memory: "500Mi"
+            # 컨테이너가 시작될떄 보장받아야 하는 최소 자원
+            requests:
+              cpu: "0.5"
+              memory: "250Mi"
+
           # NOTE k8s-secret 에 설정한 정보를 외부변수로 application.yml에 전달
           env:
             - name: DB_HOST
