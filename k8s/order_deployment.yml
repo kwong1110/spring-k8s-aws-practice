@@ -8,7 +8,12 @@ metadata:
 spec:
   # 자원공간의 제한 - 낭비 방지, 관리 편의성 제공해주는 옵션
   revisionHistoryLimit: 2
+
   replicas: 2
+  # argocd test
+  # git에 push 된건 2개로하고 로컬에서만 3개로 설정 한 후 늘었다가 줄어드는 것 확인
+  # replicas: 3
+
   selector:
     matchLabels:
       app: order-pod
